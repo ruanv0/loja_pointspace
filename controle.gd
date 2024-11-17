@@ -433,6 +433,12 @@ var botoes_pressionados = [-1, -1]
 # o índice 1 é da aba do perfil de usuário
 var selecionado = 1
 # O índice 1 do perfil de usuário é pré-selecionado
+var drag_fora_botao_loja = false
+# Caso haja um deslizamento["font_size"] do dedo do usuário no botão de 'Loja' na barra inferior,
+# que isso seja verdadeiro
+var drag_fora_botao_perfil = false
+# Caso haja um deslizamento do dedo do usuário no botão de 'Perfil' na barra inferior,
+# que isso seja verdadeiro
 var editar_dinheiro_pressionado = -1
 # -1 significa que o botão "Editar dinheiro" não está sendo pressionado,
 # outro número inteiro é o index de event do toque na tela
@@ -458,6 +464,7 @@ var dados_compra: Array
 var adicionar_pressionado = -1
 # -1 significa que o botão "Adicionar" não está sendo pressionado,
 # outro número inteiro é o index de event do toque na tela
+var drag_fora_botao_adicionar = false
 var sim_deletar_pressionado = -1
 # -1 significa que o botão "Sim" de deletar o endereço não está sendo pressionado,
 # outro número inteiro é o index de event do toque na tela
@@ -481,6 +488,9 @@ var fundo_endereco_pressionado = -1
 # outro número inteiro é o index de event do toque na tela
 var endereco_pressionado_node = -1
 # um child de $menu_enderecos/enderecos
+var drag_enderecos = false
+# Caso haja um deslizamento do dedo do usuário enquando navegando entre os endereços,
+# que isso seja verdadeiro
 var comprar_produto_pressionado = -1
 # -1 significa que o botão "comprar" de um em $produtos.get_children() não está sendo pressionado,
 # outro número inteiro é o index de event do toque na tela
@@ -490,21 +500,13 @@ var comprar_capa_pressionado = -1
 var fundo_capa_pressionado = -1
 # -1 significa que o fundo de uma capa de um produto em $menu_loja/capas_produtos.get_children() não está sendo pressionado,
 # outro número inteiro é o index de event do toque na tela
-var salvar_endereco_pressionado = -1
-# -1 significa que o botão de 'salvar' de $adicionar_endereco não está sendo pressionado,
-# outro número inteiro é o index de event do toque na tela
 var drag_loja = false
 # Caso haja um deslizamento do dedo do usuário enquando navegando na loja,
 # que isso seja verdadeiro
-var drag_enderecos = false
-# Caso haja um deslizamento do dedo do usuário enquando navegando entre os endereços,
-# que isso seja verdadeiro
-var drag_fora_botao_loja = false
-# Caso haja um deslizamento["font_size"] do dedo do usuário no botão de 'Loja' na barra inferior,
-# que isso seja verdadeiro
-var drag_fora_botao_perfil = false
-# Caso haja um deslizamento do dedo do usuário no botão de 'Perfil' na barra inferior,
-# que isso seja verdadeiro
+var salvar_endereco_pressionado = -1
+# -1 significa que o botão de 'salvar' de $adicionar_endereco não está sendo pressionado,
+# outro número inteiro é o index de event do toque na tela
+var drag_fora_botao_salvar = false
 var editar_dinheiro_concluir_pressionado = -1
 # -1 significa que o botão de 'Concluir' de $janelas/editar_dinheiro não está sendo pressionado,
 # outro número inteiro é o index de event do toque na tela
@@ -1260,7 +1262,7 @@ func _input(event) -> void:
 			pressionar_fechar_erro_0(false)
 			fechar_erro_0_pressionado = -1
 		# Se $menu_loja estiver vísivel e nenhum erro esteja vísivel
-		if $menu_loja.visible and not $janelas/erro0.visible:
+		if $menu_loja.visible and not $janelas/fundo_escuro.visible:
 			# Para cada capa de produto
 			for objeto in $menu_loja/capas_produtos.get_children():
 				# Se o index da retirada do toque for igual ao index do toque,
@@ -1323,7 +1325,7 @@ func _input(event) -> void:
 			# Se o index da retirada do toque for igual ao index do toque,
 			# o dedo do usuário tocou no botão 'Adicionar' endereço e
 			# se retirou no botão "Adicionar'
-			elif event.index == adicionar_pressionado and $menu_enderecos/adicionar.visible and event.position.x >= $menu_enderecos/adicionar.global_position.x and event.position.y >= $menu_enderecos/adicionar.global_position.y and event.position.x <= $menu_enderecos/adicionar.global_position.x + $menu_enderecos/adicionar.size.x and event.position.y <= $menu_enderecos/adicionar.global_position.y + $menu_enderecos/adicionar.size.y:
+			elif event.index == adicionar_pressionado and not drag_fora_botao_adicionar and $menu_enderecos/adicionar.visible and event.position.x >= $menu_enderecos/adicionar.global_position.x and event.position.y >= $menu_enderecos/adicionar.global_position.y and event.position.x <= $menu_enderecos/adicionar.global_position.x + $menu_enderecos/adicionar.size.x and event.position.y <= $menu_enderecos/adicionar.global_position.y + $menu_enderecos/adicionar.size.y:
 				pressionar_tipo_1($menu_enderecos/adicionar, false)
 				adicionar_endereco()
 			# Se o index da retirada do toque for igual ao index do toque,
@@ -1332,6 +1334,7 @@ func _input(event) -> void:
 			elif event.index == adicionar_pressionado and $menu_enderecos/adicionar.visible:
 				pressionar_tipo_1($menu_enderecos/adicionar, false)
 				adicionar_pressionado = -1
+				drag_fora_botao_adicionar = false
 			# Se o index da retirada do toque foi de um deslize do dedo do usuário
 			elif event.index == drag_index:
 				old_drag_y_position = -1
@@ -1379,13 +1382,14 @@ func _input(event) -> void:
 			# Se o dedo do usuário foi colocado e retirado do botão de
 			# 'adicionar' endereço e o index da retirada do toque
 			# for igual ao do toque
-			if event.index == salvar_endereco_pressionado and event.position.x >= $adicionar_endereco.get_node("salvar").position.x and event.position.y >= $adicionar_endereco.get_node("salvar").position.y and event.position.x <= $adicionar_endereco.get_node("salvar").position.x + $adicionar_endereco.get_node("salvar").size.x and event.position.y <= $adicionar_endereco.get_node("salvar").position.y + $adicionar_endereco.get_node("salvar").size.y: 
+			if event.index == salvar_endereco_pressionado and not drag_fora_botao_salvar and event.position.x >= $adicionar_endereco/salvar.global_position.x and event.position.y >= $adicionar_endereco/salvar.global_position.y and event.position.x <= $adicionar_endereco/salvar.global_position.x + $adicionar_endereco/salvar.size.x and event.position.y <= $adicionar_endereco/salvar.global_position.y + $adicionar_endereco/salvar.size.y:
 				pressionar_tipo_0($adicionar_endereco/salvar, false)
 				$adicionar_endereco.salvar()
 				salvar_endereco_pressionado = -1
-			else:
+			elif event.index == salvar_endereco_pressionado:
 				pressionar_tipo_0($adicionar_endereco/salvar, false)
 				salvar_endereco_pressionado = -1
+				drag_fora_botao_salvar = false
 		# Para cada produto aberto pelo usuário
 		# (o usuário só pode abrir 1 (um))
 		for objeto in $produtos.get_children():
@@ -1457,7 +1461,7 @@ func _input(event) -> void:
 					pressionar_perfil(true)
 					botoes_pressionados[1] = event.index
 		# Se $menu_loja estiver vísivel e não houver um erro vísivel
-		elif $menu_loja.visible and not $janelas/erro0.visible:
+		elif $menu_loja.visible and not $janelas/fundo_escuro.visible:
 			# Para cada capa de produto
 			for objeto in $menu_loja/capas_produtos.get_children():
 				# Se o botão de 'comprar' da capa do produto foi pressionado
@@ -1535,6 +1539,10 @@ func _input(event) -> void:
 						$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - user_info.margem * get_viewport_rect().size.x / 1280
 						$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - user_info.margem * get_viewport_rect().size.y / 720
 					old_drag_y_position = event.position.y
+			if event.index == adicionar_pressionado and not drag_fora_botao_adicionar and $menu_enderecos/adicionar.visible and event.position.x >= $menu_enderecos/adicionar.global_position.x and event.position.y >= $menu_enderecos/adicionar.global_position.y and event.position.x <= $menu_enderecos/adicionar.global_position.x + $menu_enderecos/adicionar.size.x and event.position.y <= $menu_enderecos/adicionar.global_position.y + $menu_enderecos/adicionar.size.y:
+				pass
+			elif event.index == adicionar_pressionado:
+				drag_fora_botao_adicionar = true
 		elif $historico_compras.visible:
 			# Se não houver a posição do deslizamento do dedo do usuário
 			if drag_index == -1:
@@ -1547,7 +1555,7 @@ func _input(event) -> void:
 					scroll_speed = (event.position.y - old_drag_y_position)
 					$historico_compras.global_position.y += scroll_speed
 					old_drag_y_position = event.position.y
-		elif $menu_loja.visible and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y <= $selecao_loja_perfil.position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x >= $selecao_loja_perfil.size.x)):
+		elif $menu_loja.visible and not $janelas/fundo_escuro.visible and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y <= $selecao_loja_perfil.position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x >= $selecao_loja_perfil.size.x)):
 			# Se não houver a posição do deslizamento do dedo do usuário
 			if drag_index == -1:
 				old_drag_y_position = event.position.y
@@ -1570,7 +1578,7 @@ func _input(event) -> void:
 			pass
 		# Caso o deslize do dedo estja fora do botão "Loja" e
 		# o index do evento do deslize seja o mesmo da pressão feita no botão
-		elif $selecao_loja_perfil.visible and botoes_pressionados[0] == event.index:
+		elif $selecao_loja_perfil.visible and not $janelas/fundo_escuro.visible and botoes_pressionados[0] == event.index:
 			drag_fora_botao_loja = true
 		# Caso o deslize do dedo estja dentro do botão "Perfil" e
 		# o index do evento do deslize seja o mesmo da pressão feita no botão
@@ -1608,6 +1616,10 @@ func _input(event) -> void:
 			drag_fora_botao_concluir = true
 		# Para cada produto que o usuário estiver vendo os detalhes
 		# (o usuário só pode ver um por vez)
+		if $adicionar_endereco.visible and salvar_endereco_pressionado == event.index and event.position.x >= $adicionar_endereco/salvar.global_position.x and event.position.y >= $adicionar_endereco/salvar.global_position.y and event.position.x <= $adicionar_endereco/salvar.global_position.x + $adicionar_endereco/salvar.size.x and event.position.y <= $adicionar_endereco/salvar.global_position.y + $adicionar_endereco/salvar.size.y:
+			pass
+		elif $adicionar_endereco.visible and salvar_endereco_pressionado == event.index:
+			drag_fora_botao_salvar = true
 		for objeto in $produtos.get_children():
 			if objeto.visible:
 				# Se não houver a posição do deslizamento do dedo do usuário
@@ -1632,7 +1644,7 @@ func _process(_delta: float) -> void:
 		scroll_speed *= 0.9
 		if scroll_speed > -1 and scroll_speed < 1:
 			scroll_speed = 0
-		if $menu_loja.visible:
+		if $menu_loja.visible and not $janelas/fundo_escuro.visible:
 			# Se posição do deslizamento estiver nos limites certos,
 			# então deslizar os objetos
 			if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and $menu_loja.position.y + scroll_speed > -$menu_loja.size.y - get_viewport_rect().size.y * 0.2 - $selecao_loja_perfil.size.y + get_viewport_rect().size.y and $menu_loja.position.y + scroll_speed < get_viewport_rect().size.y * 0.2:
