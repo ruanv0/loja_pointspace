@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfrssl70wn84o"]
+
+[ext_resource type="Script" path="res://endereco.gd" id="1_khtht"]
+[ext_resource type="Texture2D" uid="uid://ch2mogv7nmr8a" path="res://fechar.png" id="2_sk66u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ku4jo"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[node name="endereco_panel" type="Panel"]
+offset_right = 640.0
+offset_bottom = 180.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ku4jo")
+script = ExtResource("1_khtht")
+
+[node name="nome" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 480.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 35
+text = "1234567890123456789012"
+
+[node name="cep" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 90.0
+offset_right = 294.0
+offset_bottom = 139.0
+theme_override_font_sizes/font_size = 35
+text = "CEP: 00000-000"
+
+[node name="deletar_icone" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 509.0
+offset_top = 17.0
+offset_right = 605.0
+offset_bottom = 113.0
+texture = ExtResource("2_sk66u")
+expand_mode = 1
+
+[node name="deletar_texto" type="Label" parent="."]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 113.0
+offset_right = 620.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 35
+text = "Deletar"

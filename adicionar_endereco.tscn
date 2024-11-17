@@ -1,0 +1,137 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc26hv6m4snsj"]
+
+[ext_resource type="Script" path="res://adicionar_endereco.gd" id="1_t7f65"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lp0g7"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.992432, 0.992432, 0.992432, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[node name="adicionar_endereco" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t7f65")
+
+[node name="titulo" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 606.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 60
+text = "Adicionar endereço"
+
+[node name="cep" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 140.0
+offset_right = 689.0
+offset_bottom = 189.0
+theme_override_font_sizes/font_size = 35
+text = "CEP (Código de Endereçamento Postal)"
+
+[node name="cep_edit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 190.0
+offset_right = 228.0
+offset_bottom = 247.0
+theme_override_font_sizes/font_size = 35
+placeholder_text = "00000-000"
+max_length = 9
+virtual_keyboard_type = 2
+
+[node name="nome" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 260.0
+offset_right = 405.0
+offset_bottom = 315.0
+theme_override_font_sizes/font_size = 35
+text = "Nome do endereço"
+
+[node name="nome_edit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 320.0
+offset_right = 680.0
+offset_bottom = 377.0
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Minha casa"
+max_length = 24
+
+[node name="salvar" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 523.0
+offset_top = 1145.0
+offset_right = 680.0
+offset_bottom = 1240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lp0g7")
+
+[node name="texto" type="Label" parent="salvar"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 137.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Salvar"
+
+[node name="cep_invalido" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 390.0
+offset_right = 323.0
+offset_bottom = 439.0
+theme_override_colors/font_color = Color(1, 0.38714, 0.326784, 1)
+theme_override_font_sizes/font_size = 35
+text = "O CEP é inválido."
+
+[node name="cep_existente" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 449.0
+offset_right = 483.0
+offset_bottom = 498.0
+theme_override_colors/font_color = Color(1, 0.38714, 0.326784, 1)
+theme_override_font_sizes/font_size = 35
+text = "Esse CEP já foi adicionado."
+
+[node name="nome_existente" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 508.0
+offset_right = 595.0
+offset_bottom = 609.0
+theme_override_colors/font_color = Color(1, 0.38714, 0.326784, 1)
+theme_override_font_sizes/font_size = 35
+text = "Esse nome do endereço já foi
+adicionado."
+
+[node name="nada_escrito" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 616.0
+offset_right = 595.0
+offset_bottom = 717.0
+theme_override_colors/font_color = Color(1, 0.38714, 0.326784, 1)
+theme_override_font_sizes/font_size = 35
+text = "Não há nada escrito no nome do
+endereço."
+
+[connection signal="text_changed" from="cep_edit" to="." method="_on_cep_edit_text_changed"]

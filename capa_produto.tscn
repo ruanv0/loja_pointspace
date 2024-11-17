@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4np53jurf7wy"]
+
+[ext_resource type="Script" path="res://capa_produto.gd" id="1_a8mrf"]
+[ext_resource type="Texture2D" uid="uid://cp51or8soa2h7" path="res://imagens_produtos/a_revolucao_dos_bichos.png" id="2_2b6rc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rseak"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3bqi"]
+bg_color = Color(0.188235, 0.188235, 0.188235, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="fundo_capa" type="Panel"]
+offset_right = 320.0
+offset_bottom = 585.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rseak")
+script = ExtResource("1_a8mrf")
+
+[node name="produto" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 300.0
+offset_bottom = 300.0
+texture = ExtResource("2_2b6rc")
+expand_mode = 1
+
+[node name="nome" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 310.5
+offset_right = 293.0
+offset_bottom = 344.5
+theme_override_font_sizes/font_size = 24
+text = "A Revolução dos Bichos"
+
+[node name="preco" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 355.0
+offset_right = 125.0
+offset_bottom = 410.0
+theme_override_font_sizes/font_size = 40
+text = "R$ 15"
+
+[node name="unidades" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 420.0
+offset_right = 164.0
+offset_bottom = 462.0
+theme_override_font_sizes/font_size = 30
+text = "Unidades:"
+
+[node name="escrita" type="LineEdit" parent="unidades"]
+layout_mode = 0
+offset_left = 154.0
+offset_top = -4.0
+offset_right = 274.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 30
+text = "1"
+placeholder_text = "1"
+max_length = 6
+virtual_keyboard_type = 2
+
+[node name="comprar" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 485.0
+offset_right = 300.0
+offset_bottom = 565.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k3bqi")
+
+[node name="texto" type="Label" parent="comprar"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 12.0
+offset_right = 224.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 40
+text = "Comprar"
+
+[connection signal="text_changed" from="unidades/escrita" to="." method="_on_escrita_text_changed"]

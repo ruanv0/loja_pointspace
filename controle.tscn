@@ -1,0 +1,564 @@
+[gd_scene load_steps=18 format=3 uid="uid://brp6xxddd3jub"]
+
+[ext_resource type="Script" path="res://controle.gd" id="1_f1aak"]
+[ext_resource type="Texture2D" uid="uid://cclq2wri8t1go" path="res://shopping_cart.png" id="2_xcerq"]
+[ext_resource type="Texture2D" uid="uid://dxrga1ds8b26j" path="res://person_pressionado.png" id="3_g4kb1"]
+[ext_resource type="Script" path="res://enderecos.gd" id="4_e1lpb"]
+[ext_resource type="Script" path="res://controle_historico.gd" id="6_d6usm"]
+[ext_resource type="Script" path="res://adicionar_endereco.gd" id="7_m0gqm"]
+[ext_resource type="Texture2D" uid="uid://ch2mogv7nmr8a" path="res://fechar.png" id="8_5cyyp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dey5n"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ftk6"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exp8p"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq31f"]
+bg_color = Color(0.156933, 0.156933, 0.156933, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_206qb"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lp0g7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pw26w"]
+bg_color = Color(0, 0, 0, 0.498039)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4a4hp"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvrdj"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6k26p"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="controle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f1aak")
+metadata/_edit_vertical_guides_ = [-515.0]
+
+[node name="menu_perfil" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="editar" type="Panel" parent="menu_perfil"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 230.0
+offset_right = 365.0
+offset_bottom = 325.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dey5n")
+
+[node name="texto" type="Label" parent="menu_perfil/editar"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 305.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Editar dinheiro"
+
+[node name="historico" type="Panel" parent="menu_perfil"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 345.0
+offset_right = 486.0
+offset_bottom = 440.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ftk6")
+
+[node name="texto" type="Label" parent="menu_perfil/historico"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 426.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Histórico de compras"
+
+[node name="enderecos" type="Panel" parent="menu_perfil"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 460.0
+offset_right = 278.0
+offset_bottom = 555.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_exp8p")
+
+[node name="texto" type="Label" parent="menu_perfil/enderecos"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 218.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Endereços"
+
+[node name="dinheiro" type="Label" parent="menu_perfil"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 150.0
+offset_right = 466.0
+offset_bottom = 205.0
+theme_override_font_sizes/font_size = 40
+text = "Dinheiro: R$ 7 000 000"
+
+[node name="voce" type="Label" parent="menu_perfil"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 225.0
+offset_bottom = 150.0
+theme_override_font_sizes/font_size = 80
+text = "Você"
+
+[node name="menu_loja" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 720.0
+offset_bottom = 3118.0
+
+[node name="dinheiro" type="Label" parent="menu_loja"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 561.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 50
+text = "Dinheiro: R$ 2 993 293"
+
+[node name="capas_produtos" type="Control" parent="menu_loja"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="selecao_loja_perfil" type="Panel" parent="."]
+layout_mode = 0
+offset_top = 1100.0
+offset_right = 720.0
+offset_bottom = 1280.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq31f")
+
+[node name="loja_icone" type="TextureRect" parent="selecao_loja_perfil"]
+layout_mode = 1
+offset_left = 132.0
+offset_top = 15.0
+offset_right = 228.0
+offset_bottom = 111.0
+texture = ExtResource("2_xcerq")
+
+[node name="loja_texto" type="Label" parent="selecao_loja_perfil"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 111.0
+offset_right = 220.0
+offset_bottom = 166.0
+theme_override_font_sizes/font_size = 40
+text = "Loja"
+
+[node name="perfil_icone" type="TextureRect" parent="selecao_loja_perfil"]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 15.0
+offset_right = 588.0
+offset_bottom = 111.0
+texture = ExtResource("3_g4kb1")
+
+[node name="perfil_texto" type="Label" parent="selecao_loja_perfil"]
+layout_mode = 0
+offset_left = 489.0
+offset_top = 111.0
+offset_right = 591.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(0.639216, 0.639216, 0.639216, 1)
+theme_override_font_sizes/font_size = 40
+text = "Perfil"
+
+[node name="historico_compras" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 720.0
+offset_bottom = 143.0
+script = ExtResource("6_d6usm")
+
+[node name="titulo" type="Label" parent="historico_compras"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 555.0
+offset_bottom = 109.0
+theme_override_font_sizes/font_size = 60
+text = "Histórico de compras"
+
+[node name="nenhum" type="Label" parent="historico_compras"]
+visible = false
+layout_mode = 0
+offset_left = 116.0
+offset_top = 616.0
+offset_right = 604.0
+offset_bottom = 665.0
+theme_override_font_sizes/font_size = 35
+text = "Não houve nenhuma compra"
+
+[node name="compras" type="Control" parent="historico_compras"]
+anchors_preset = 0
+offset_top = 143.0
+offset_right = 40.0
+offset_bottom = 183.0
+
+[node name="produtos" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="menu_enderecos" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 720.0
+offset_bottom = 143.0
+script = ExtResource("4_e1lpb")
+
+[node name="enderecos_texto" type="Label" parent="menu_enderecos"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 340.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 60
+text = "Endereços"
+
+[node name="escolher" type="Label" parent="menu_enderecos"]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 340.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 60
+text = "Escolher endereço"
+
+[node name="enderecos" type="Control" parent="menu_enderecos"]
+anchors_preset = 0
+offset_top = 143.0
+offset_right = 40.0
+offset_bottom = 183.0
+
+[node name="nenhum" type="Label" parent="menu_enderecos"]
+visible = false
+layout_mode = 0
+offset_left = 44.0
+offset_top = 616.0
+offset_right = 676.0
+offset_bottom = 665.0
+theme_override_font_sizes/font_size = 35
+text = "Não há nenhum endereço cadastrado"
+
+[node name="adicionar" type="Panel" parent="menu_enderecos"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 1145.0
+offset_right = 680.0
+offset_bottom = 1240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_206qb")
+
+[node name="texto" type="Label" parent="menu_enderecos/adicionar"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 137.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Adicionar"
+
+[node name="adicionar_endereco" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_m0gqm")
+
+[node name="titulo" type="Label" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 606.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 60
+text = "Adicionar endereço"
+
+[node name="cep" type="Label" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 140.0
+offset_right = 689.0
+offset_bottom = 189.0
+theme_override_font_sizes/font_size = 35
+text = "CEP (Código de Endereçamento Postal)"
+
+[node name="cep_edit" type="LineEdit" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 190.0
+offset_right = 228.0
+offset_bottom = 247.0
+theme_override_font_sizes/font_size = 35
+placeholder_text = "00000-000"
+max_length = 9
+virtual_keyboard_type = 2
+
+[node name="nome" type="Label" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 260.0
+offset_right = 405.0
+offset_bottom = 315.0
+theme_override_font_sizes/font_size = 35
+text = "Nome do endereço"
+
+[node name="nome_edit" type="LineEdit" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 320.0
+offset_right = 680.0
+offset_bottom = 377.0
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Minha casa"
+max_length = 22
+
+[node name="salvar" type="Panel" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 523.0
+offset_top = 1145.0
+offset_right = 680.0
+offset_bottom = 1240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lp0g7")
+
+[node name="texto" type="Label" parent="adicionar_endereco/salvar"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 137.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Salvar"
+
+[node name="erro" type="Label" parent="adicionar_endereco"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 390.0
+offset_right = 111.0
+offset_bottom = 439.0
+theme_override_colors/font_color = Color(1, 0.38714, 0.326784, 1)
+theme_override_font_sizes/font_size = 35
+
+[node name="janelas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="fundo_escuro" type="Panel" parent="janelas"]
+visible = false
+layout_mode = 0
+offset_right = 720.0
+offset_bottom = 1280.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pw26w")
+
+[node name="erro0" type="Panel" parent="janelas"]
+visible = false
+layout_mode = 0
+offset_left = 60.0
+offset_top = 490.0
+offset_right = 660.0
+offset_bottom = 701.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4a4hp")
+
+[node name="fechar" type="TextureRect" parent="janelas/erro0"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 20.0
+offset_right = 580.0
+offset_bottom = 100.0
+texture = ExtResource("8_5cyyp")
+expand_mode = 1
+
+[node name="erro0" type="Label" parent="janelas/erro0"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 584.0
+offset_bottom = 191.0
+theme_override_colors/font_color = Color(1, 0.388235, 0.32549, 1)
+theme_override_font_sizes/font_size = 40
+text = "Você não tem dinheiro
+suficiente para fazer essa
+compra."
+
+[node name="editar_dinheiro" type="Panel" parent="janelas"]
+visible = false
+layout_mode = 0
+offset_left = 60.0
+offset_top = 490.0
+offset_right = 660.0
+offset_bottom = 770.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4a4hp")
+
+[node name="titulo" type="Label" parent="janelas/editar_dinheiro"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 339.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Editar o dinheiro"
+
+[node name="dinheiro" type="LineEdit" parent="janelas/editar_dinheiro"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 70.0
+offset_right = 519.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 40
+text = "7000000"
+max_length = 10
+virtual_keyboard_type = 2
+
+[node name="concluir" type="Panel" parent="janelas/editar_dinheiro"]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 170.0
+offset_right = 580.0
+offset_bottom = 260.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dey5n")
+
+[node name="texto" type="Label" parent="janelas/editar_dinheiro/concluir"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 178.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Concluir"
+
+[node name="deletar_fundo" type="Panel" parent="janelas"]
+visible = false
+layout_mode = 0
+offset_left = 60.0
+offset_top = 530.0
+offset_right = 660.0
+offset_bottom = 793.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4a4hp")
+
+[node name="deletar_pergunta" type="Label" parent="janelas/deletar_fundo"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 451.0
+offset_bottom = 133.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Você quer deletar este
+endereço?"
+
+[node name="sim_deletar" type="Panel" parent="janelas/deletar_fundo"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 153.0
+offset_right = 290.0
+offset_bottom = 243.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dvrdj")
+
+[node name="texto" type="Label" parent="janelas/deletar_fundo/sim_deletar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -27.5
+offset_right = 35.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Sim"
+
+[node name="nao_deletar" type="Panel" parent="janelas/deletar_fundo"]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 153.0
+offset_right = 580.0
+offset_bottom = 243.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6k26p")
+
+[node name="texto" type="Label" parent="janelas/deletar_fundo/nao_deletar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -27.5
+offset_right = 35.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Não"
+
+[connection signal="text_changed" from="adicionar_endereco/cep_edit" to="adicionar_endereco" method="_on_cep_edit_text_changed"]
+[connection signal="text_changed" from="janelas/editar_dinheiro/dinheiro" to="." method="_on_dinheiro_text_changed"]

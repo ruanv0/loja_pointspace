@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://m7iwxm44odao"]
+
+[ext_resource type="Texture2D" uid="uid://dwo33k2cuy1rt" path="res://imagens_produtos/moto_g34.png" id="1_5ar3t"]
+[ext_resource type="Script" path="res://compra.gd" id="1_wfqtd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgukk"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="fundo" type="Panel"]
+offset_right = 680.0
+offset_bottom = 290.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgukk")
+script = ExtResource("1_wfqtd")
+
+[node name="imagem" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 270.0
+offset_bottom = 270.0
+texture = ExtResource("1_5ar3t")
+expand_mode = 1
+
+[node name="nome" type="Label" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 20.0
+offset_right = 514.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 30
+text = "Nome: Moto G34"
+
+[node name="preco_unidade" type="Label" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 72.0
+offset_right = 646.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 30
+text = "Preço por unidade: R$ 950"
+
+[node name="unidades" type="Label" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 124.0
+offset_right = 439.0
+offset_bottom = 166.0
+theme_override_font_sizes/font_size = 30
+text = "Unidades: 1"
+
+[node name="preco_total" type="Label" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 176.0
+offset_right = 537.0
+offset_bottom = 218.0
+theme_override_font_sizes/font_size = 30
+text = "Preço total: R$ 950"
+
+[node name="quando" type="Label" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 228.0
+offset_right = 514.0
+offset_bottom = 270.0
+theme_override_font_sizes/font_size = 30
+text = "Quando: 07/07/2024 22:28"

@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="PointSpace"
+config/version="2024.11.14.0"
+run/main_scene="res://controle.tscn"
+config/quit_on_go_back=false
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://pointspace-logo-edited.png"
+config/windows_native_icon="res://pointspace-logo-edited.ico"
+
+[autoload]
+
+user_info="*res://user_info.gd"
+
+[display]
+
+window/size/viewport_width=360
+window/size/viewport_height=640
+window/handheld/orientation=6
+
+[filesystem]
+
+import/blender/enabled=false
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.135159, 0.135159, 0.135159, 1)
