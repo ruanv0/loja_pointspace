@@ -60,7 +60,7 @@ func atualizar_interface() -> void:
 		$quando.reset_size()
 		$quando.position.x = quando_original["position"].x * get_viewport_rect().size.x / 720
 		$quando.position.y = quando_original["position"].y * get_viewport_rect().size.x / 720
-	elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
+	elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
 		size.x = fundo_original_size.x * get_viewport_rect().size.x / 720 / 2
 		size.y = fundo_original_size.y * get_viewport_rect().size.x / 720 / 2
 		$imagem.scale = Vector2(get_viewport_rect().size.x / 720 / 2,

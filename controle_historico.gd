@@ -3,7 +3,7 @@ extends Control
 
 var titulo_original = {}
 var nenhum_font_size_original: float
-var compras_node_position_original: Vector2
+var margem_titulo_compras: float
 var compra = load("res://compra.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -11,19 +11,21 @@ func _ready() -> void:
 	titulo_original["font_size"] = $titulo.get_theme_font_size("font_size")
 	titulo_original["global_position"] = $titulo.global_position
 	nenhum_font_size_original = $nenhum.get_theme_font_size("font_size")
-	compras_node_position_original = $compras.position
+	margem_titulo_compras = $compras.global_position.y - $titulo.global_position.y - $titulo.size.y
 	carregar_compras()
 
 
 func atualizar_interface() -> void:
 	if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1:
 		global_position.y = 0
-		$compras.position.x = compras_node_position_original.x * get_viewport_rect().size.x / 720
-		$compras.position.y = compras_node_position_original.y * get_viewport_rect().size.x / 720
+		var old_titulo_font_size = $titulo.get_theme_font_size("font_size")
 		$titulo.add_theme_font_size_override("font_size", titulo_original["font_size"] * get_viewport_rect().size.x / 720)
-		$titulo.reset_size()
+		if old_titulo_font_size != $titulo.get_theme_font_size("font_size"):
+			await($titulo.minimum_size_changed)
+			$titulo.reset_size()
 		$titulo.global_position.x = titulo_original["global_position"].x * get_viewport_rect().size.x / 720
 		$titulo.global_position.y = titulo_original["global_position"].y * get_viewport_rect().size.x / 720
+		$compras.global_position.y = $titulo.global_position.y + $titulo.size.y + margem_titulo_compras * get_viewport_rect().size.x / 720
 		$nenhum.add_theme_font_size_override("font_size", nenhum_font_size_original * get_viewport_rect().size.x / 720)
 		$nenhum.reset_size()
 		$nenhum.global_position.x = (get_viewport_rect().size.x - $nenhum.size.x) / 2
@@ -34,14 +36,16 @@ func atualizar_interface() -> void:
 																	 ($titulo.global_position.y + $titulo.size.y + 20 * get_viewport_rect().size.x / 720) + ($compras.get_children()[index].size.y + 20 * get_viewport_rect().size.x / 720) * index)
 		if $compras.get_child_count() > 0:
 			size.y = $compras.get_child(-1).global_position.y + $compras.get_child(-1).size.y - $titulo.global_position.y + 20 * get_viewport_rect().size.x / 720
-	elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
+	elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
 		global_position.y = 0
-		$compras.position.x = compras_node_position_original.x * get_viewport_rect().size.x / 720
-		$compras.position.y = compras_node_position_original.y * get_viewport_rect().size.x / 720
+		var old_titulo_font_size = $titulo.get_theme_font_size("font_size")
 		$titulo.add_theme_font_size_override("font_size", titulo_original["font_size"] * get_viewport_rect().size.x / 720)
-		$titulo.reset_size()
+		if old_titulo_font_size != $titulo.get_theme_font_size("font_size"):
+			await($titulo.minimum_size_changed)
+			$titulo.reset_size()
 		$titulo.global_position.x = titulo_original["global_position"].x * get_viewport_rect().size.x / 720
 		$titulo.global_position.y = titulo_original["global_position"].y * get_viewport_rect().size.x / 720
+		$compras.global_position.y = $titulo.global_position.y + $titulo.size.y + margem_titulo_compras * get_viewport_rect().size.x / 720
 		$nenhum.add_theme_font_size_override("font_size", nenhum_font_size_original * get_viewport_rect().size.x / 720)
 		$nenhum.reset_size()
 		$nenhum.global_position.x = (get_viewport_rect().size.x - $nenhum.size.x) / 2

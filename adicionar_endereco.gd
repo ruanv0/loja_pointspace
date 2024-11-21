@@ -24,6 +24,7 @@ func _ready() -> void:
 	salvar_original["texto_font_size"] = $salvar/texto.get_theme_font_size("font_size")
 	salvar_original["texto_position"] = $salvar/texto.position
 	salvar_original["fundo_size"] = $salvar.size
+	salvar_original["margem"] = Vector2(720, 1280) - $salvar.global_position - $salvar.size
 	erro_original["font_size"] = $erro.get_theme_font_size("font_size")
 	erro_original["position"] = $erro.position
 	atualizar_interface()
@@ -59,13 +60,13 @@ func atualizar_interface() -> void:
 		$salvar/texto.reset_size()
 		$salvar.size.x = salvar_original["fundo_size"].x * get_viewport_rect().size.x / 720
 		$salvar.size.y = salvar_original["fundo_size"].y * get_viewport_rect().size.x / 720
-		$salvar.global_position.x = get_viewport_rect().size.x - $salvar.size.x - user_info.margem * get_viewport_rect().size.x / 720
-		$salvar.global_position.y = get_viewport_rect().size.y - $salvar.size.y - user_info.margem * get_viewport_rect().size.y / 1280
+		$salvar.global_position.x = get_viewport_rect().size.x - $salvar.size.x - salvar_original["margem"].x * get_viewport_rect().size.x / 720
+		$salvar.global_position.y = get_viewport_rect().size.y - $salvar.size.y - salvar_original["margem"].y * get_viewport_rect().size.y / 1280
 		$erro.position.x = erro_original["position"].x * get_viewport_rect().size.x / 720
 		$erro.position.y = erro_original["position"].y * get_viewport_rect().size.x / 720
 		$erro.add_theme_font_size_override("font_size", erro_original["font_size"] * get_viewport_rect().size.x / 720)
 		$erro.reset_size()
-	elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
+	elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
 		$titulo.global_position.x = titulo_original["global_position"].x * get_viewport_rect().size.y / 720
 		$titulo.global_position.y = titulo_original["global_position"].y * get_viewport_rect().size.y / 720
 		$titulo.add_theme_font_size_override("font_size", titulo_original["font_size"] * get_viewport_rect().size.y / 720)
@@ -94,8 +95,8 @@ func atualizar_interface() -> void:
 		$salvar/texto.reset_size()
 		$salvar.size.x = salvar_original["fundo_size"].x * get_viewport_rect().size.y / 720
 		$salvar.size.y = salvar_original["fundo_size"].y * get_viewport_rect().size.y / 720
-		$salvar.global_position.x = get_viewport_rect().size.x - $salvar.size.x - user_info.margem * get_viewport_rect().size.x / 1280
-		$salvar.global_position.y = get_viewport_rect().size.y - $salvar.size.y - user_info.margem * get_viewport_rect().size.y / 720
+		$salvar.global_position.x = get_viewport_rect().size.x - $salvar.size.x - salvar_original["margem"].x * get_viewport_rect().size.x / 1280
+		$salvar.global_position.y = get_viewport_rect().size.y - $salvar.size.y - salvar_original["margem"].y * get_viewport_rect().size.y / 720
 		$erro.position.x = erro_original["position"].x * get_viewport_rect().size.y / 720
 		$erro.position.y = erro_original["position"].y * get_viewport_rect().size.y / 720
 		$erro.add_theme_font_size_override("font_size", erro_original["font_size"] * get_viewport_rect().size.y / 720)

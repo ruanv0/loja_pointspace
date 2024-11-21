@@ -84,7 +84,7 @@ func atualizar_interface() -> void:
 		$sobre.add_theme_font_size_override("normal_font_size", sobre_original_font_size * get_viewport_rect().size.x / 720)
 		$sobre.size = Vector2(get_viewport_rect().size.x - $dinheiro.global_position.x * 2, 0)
 		size_y = $sobre.global_position.y + $sobre.size.y
-	elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
+	elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
 		$dinheiro.global_position.x = texto_dinheiro_original["global_position"].x * get_viewport_rect().size.y / 720
 		$dinheiro.global_position.y = texto_dinheiro_original["global_position"].y * get_viewport_rect().size.y / 720
 		$dinheiro.add_theme_font_size_override("font_size", texto_dinheiro_original["font_size"] * get_viewport_rect().size.y / 720 / 2)

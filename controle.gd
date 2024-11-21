@@ -609,6 +609,7 @@ func _ready() -> void:
 
 func atualizar_interface() -> void:
 	if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1:
+		$menu_loja.global_position.y = 0
 		for index in range(0, len($menu_loja/capas_produtos.get_children()), 1):
 			$menu_loja/capas_produtos.get_child(index).size.x = capa_original["fundo_size"].x * get_viewport_rect().size.x / 720
 			$menu_loja/capas_produtos.get_child(index).size.y = capa_original["fundo_size"].y * get_viewport_rect().size.x / 720
@@ -647,26 +648,31 @@ func atualizar_interface() -> void:
 		$menu_loja/dinheiro.reset_size()
 		$menu_loja/dinheiro.global_position.x = capa_original["loja_dinheiro_texto_global_position"].x * get_viewport_rect().size.x / 720
 		$menu_loja/dinheiro.global_position.y = capa_original["loja_dinheiro_texto_global_position"].y * get_viewport_rect().size.x / 720
-		$menu_loja.global_position.y = 0
 		if $menu_loja/capas_produtos.get_child_count() > 0:
 			$menu_loja.size.y = $menu_loja/capas_produtos.get_child(-1).global_position.y + $menu_loja/capas_produtos.get_child(-1).size.y
 		$selecao_loja_perfil.size = Vector2(get_viewport_rect().size.x,
-		selecao_loja_perfil_original["fundo_size"].y * get_viewport_rect().size.y / 1280)
+											selecao_loja_perfil_original["fundo_size"].y * get_viewport_rect().size.y / 1280)
 		$selecao_loja_perfil.global_position.y = get_viewport_rect().size.y - $selecao_loja_perfil.size.y
 		$selecao_loja_perfil/loja_icone.scale = Vector2(get_viewport_rect().size.y / 1280,
 														get_viewport_rect().size.y / 1280)
 		$selecao_loja_perfil/loja_icone.position.x = $selecao_loja_perfil.size.x / 4 - $selecao_loja_perfil/loja_icone.size.x * $selecao_loja_perfil/loja_icone.scale.x / 2
 		$selecao_loja_perfil/loja_icone.position.y = selecao_loja_perfil_original["loja_icone_position"].y * get_viewport_rect().size.y / 1280
+		var old_loja_texto_font_size = $selecao_loja_perfil/loja_texto.get_theme_font_size("font_size")
 		$selecao_loja_perfil/loja_texto.add_theme_font_size_override("font_size", selecao_loja_perfil_original["loja_texto_font_size"] * get_viewport_rect().size.y / 1280)
-		$selecao_loja_perfil/loja_texto.reset_size()
+		if old_loja_texto_font_size != $selecao_loja_perfil/loja_texto.get_theme_font_size("font_size"):
+			await($selecao_loja_perfil/loja_texto.minimum_size_changed)
+			$selecao_loja_perfil/loja_texto.reset_size()
 		$selecao_loja_perfil/loja_texto.position.x = $selecao_loja_perfil.size.x / 4 - $selecao_loja_perfil/loja_texto.size.x / 2
 		$selecao_loja_perfil/loja_texto.position.y = selecao_loja_perfil_original["loja_texto_position"].y * get_viewport_rect().size.y / 1280
 		$selecao_loja_perfil/perfil_icone.scale = Vector2(get_viewport_rect().size.y / 1280,
 														  get_viewport_rect().size.y / 1280)
 		$selecao_loja_perfil/perfil_icone.position.x = $selecao_loja_perfil.size.x / 4 * 3 - $selecao_loja_perfil/perfil_icone.size.x * $selecao_loja_perfil/perfil_icone.scale.x / 2
 		$selecao_loja_perfil/perfil_icone.position.y = selecao_loja_perfil_original["perfil_icone_position"].y * get_viewport_rect().size.y / 1280
+		var old_perfil_texto_font_size = $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size")
 		$selecao_loja_perfil/perfil_texto.add_theme_font_size_override("font_size", selecao_loja_perfil_original["perfil_texto_font_size"] * get_viewport_rect().size.y / 1280)
-		$selecao_loja_perfil/perfil_texto.reset_size()
+		if old_perfil_texto_font_size != $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size"):
+			await($selecao_loja_perfil/perfil_texto.minimum_size_changed)
+			$selecao_loja_perfil/perfil_texto.reset_size()
 		$selecao_loja_perfil/perfil_texto.position.x = $selecao_loja_perfil.size.x / 4 * 3 - $selecao_loja_perfil/perfil_texto.size.x / 2
 		$selecao_loja_perfil/perfil_texto.position.y = selecao_loja_perfil_original["perfil_texto_position"].y * get_viewport_rect().size.y / 1280
 		$janelas/fundo_escuro.size = get_viewport_rect().size
@@ -738,7 +744,7 @@ func atualizar_interface() -> void:
 		$menu_perfil/editar.size.x = editar_dinheiro_original["editar_size"].x * get_viewport_rect().size.x / 720
 		$menu_perfil/editar.size.y = editar_dinheiro_original["editar_size"].y * get_viewport_rect().size.x / 720
 		$menu_perfil/editar.global_position.x = editar_dinheiro_original["editar_global_position"].x * get_viewport_rect().size.x / 720
-		$menu_perfil/editar.global_position.y = $menu_perfil/dinheiro.global_position.y + $menu_perfil/dinheiro.size.y + user_info.margem / 2.0 * get_viewport_rect().size.x / 720
+		$menu_perfil/editar.global_position.y = editar_dinheiro_original["editar_global_position"].y * get_viewport_rect().size.x / 720
 		$menu_perfil/editar/texto.add_theme_font_size_override("font_size", editar_dinheiro_original["texto_font_size"] * get_viewport_rect().size.x / 720)
 		$menu_perfil/editar/texto.reset_size()
 		$menu_perfil/editar/texto.position.x = editar_dinheiro_original["texto_position"].x * get_viewport_rect().size.x / 720
@@ -759,24 +765,28 @@ func atualizar_interface() -> void:
 		$menu_perfil/enderecos/texto.reset_size()
 		$menu_perfil/enderecos/texto.position.x = enderecos_botao_original["texto_position"].x * get_viewport_rect().size.x / 720
 		$menu_perfil/enderecos/texto.position.y = enderecos_botao_original["texto_position"].y * get_viewport_rect().size.x / 720
-		$menu_loja.global_position = Vector2(0, 0)
-		if $menu_loja/capas_produtos.get_child_count() > 0:
-			$menu_loja.size.y = $menu_loja/capas_produtos.get_child(-1).global_position.y + $menu_loja/capas_produtos.get_child(-1).size.y
 		for objeto in $produtos.get_children():
 			objeto.atualizar_interface()
-	elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
+	elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
 		$selecao_loja_perfil.size = Vector2(selecao_loja_perfil_original["fundo_size"].y * get_viewport_rect().size.x / 1280,
 											get_viewport_rect().size.y)
 		$selecao_loja_perfil.global_position = Vector2(0, 0)
+		var old_loja_texto_font_size = $selecao_loja_perfil/loja_texto.get_theme_font_size("font_size")
 		$selecao_loja_perfil/perfil_texto.add_theme_font_size_override("font_size", selecao_loja_perfil_original["perfil_texto_font_size"] * get_viewport_rect().size.x / 1280)
-		$selecao_loja_perfil/perfil_texto.reset_size()
+		if old_loja_texto_font_size != $selecao_loja_perfil/loja_texto.get_theme_font_size("font_size"):
+			await($selecao_loja_perfil/loja_texto.minimum_size_changed)
+			$selecao_loja_perfil/loja_texto.reset_size()
 		$selecao_loja_perfil/perfil_icone.scale = Vector2(get_viewport_rect().size.x / 1280,
 														  get_viewport_rect().size.x / 1280)
 		$selecao_loja_perfil/perfil_texto.position.x = $selecao_loja_perfil.size.x / 2 - $selecao_loja_perfil/perfil_texto.size.x / 2
 		$selecao_loja_perfil/perfil_texto.position.y = $selecao_loja_perfil.size.y / 4 * 3 - $selecao_loja_perfil/perfil_texto.size.y / 2 + $selecao_loja_perfil/perfil_icone.size.y * $selecao_loja_perfil/perfil_icone.scale.y / 2
 		$selecao_loja_perfil/perfil_icone.position.x = $selecao_loja_perfil.size.x / 2 - $selecao_loja_perfil/perfil_icone.size.y * $selecao_loja_perfil/perfil_icone.scale.x / 2
 		$selecao_loja_perfil/perfil_icone.position.y = $selecao_loja_perfil.size.y / 4 * 3 - $selecao_loja_perfil/perfil_icone.size.y * $selecao_loja_perfil/perfil_icone.scale.y / 2 - $selecao_loja_perfil/perfil_texto.size.y / 2
+		var old_perfil_texto_font_size = $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size")
 		$selecao_loja_perfil/loja_texto.add_theme_font_size_override("font_size", selecao_loja_perfil_original["loja_texto_font_size"] * get_viewport_rect().size.x / 1280)
+		if old_perfil_texto_font_size != $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size"):
+			await($selecao_loja_perfil/perfil_texto.minimum_size_changed)
+			$selecao_loja_perfil/perfil_texto.reset_size()
 		$selecao_loja_perfil/loja_texto.reset_size()
 		$selecao_loja_perfil/loja_icone.scale = Vector2(get_viewport_rect().size.x / 1280,
 														get_viewport_rect().size.x / 1280)
@@ -784,6 +794,7 @@ func atualizar_interface() -> void:
 		$selecao_loja_perfil/loja_texto.position.y = $selecao_loja_perfil.size.y / 4 - $selecao_loja_perfil/loja_texto.size.y / 2 + $selecao_loja_perfil/loja_icone.size.y * $selecao_loja_perfil/loja_icone.scale.y / 2
 		$selecao_loja_perfil/loja_icone.position.x = $selecao_loja_perfil.size.x / 2 - $selecao_loja_perfil/loja_icone.size.y * $selecao_loja_perfil/loja_icone.scale.x / 2
 		$selecao_loja_perfil/loja_icone.position.y = $selecao_loja_perfil.size.y / 4 - $selecao_loja_perfil/loja_icone.size.y * $selecao_loja_perfil/loja_icone.scale.y / 2 - $selecao_loja_perfil/loja_texto.size.y / 2
+		$menu_loja.global_position.y = 0
 		for index in range(0, len($menu_loja/capas_produtos.get_children()), 1):
 			$menu_loja/capas_produtos.get_child(index).size.x = capa_original["fundo_size"].x * (get_viewport_rect().size.x - $selecao_loja_perfil.size.x) / 4 / (capa_original["fundo_size"].x + 40)
 			$menu_loja/capas_produtos.get_child(index).size.y = capa_original["fundo_size"].y * (get_viewport_rect().size.x - $selecao_loja_perfil.size.x) / 4 / (capa_original["fundo_size"].x + 40)
@@ -822,7 +833,6 @@ func atualizar_interface() -> void:
 		$menu_loja/dinheiro.reset_size()
 		$menu_loja/dinheiro.global_position.x = $selecao_loja_perfil.size.x + capa_original["loja_dinheiro_texto_global_position"].x * (get_viewport_rect().size.x - $selecao_loja_perfil.size.x) / 4 / (capa_original["fundo_size"].x + 40)
 		$menu_loja/dinheiro.global_position.y = capa_original["loja_dinheiro_texto_global_position"].y * (get_viewport_rect().size.x - $selecao_loja_perfil.size.x) / 4 / (capa_original["fundo_size"].x + 40)
-		$menu_loja.global_position.y = 0
 		if $menu_loja/capas_produtos.get_child_count() > 0:
 			$menu_loja.size.y = $menu_loja/capas_produtos.get_child(-1).global_position.y + $menu_loja/capas_produtos.get_child(-1).size.y
 		$janelas/fundo_escuro.size = get_viewport_rect().size
@@ -915,9 +925,6 @@ func atualizar_interface() -> void:
 		$menu_perfil/enderecos/texto.reset_size()
 		$menu_perfil/enderecos/texto.position.x = enderecos_botao_original["texto_position"].x * get_viewport_rect().size.y / 720
 		$menu_perfil/enderecos/texto.position.y = enderecos_botao_original["texto_position"].y * get_viewport_rect().size.y / 720
-		$menu_loja.global_position = Vector2(0, 0)
-		if $menu_loja/capas_produtos.get_child_count() > 0:
-			$menu_loja.size.y = $menu_loja/capas_produtos.get_child(-1).global_position.y + $menu_loja/capas_produtos.get_child(-1).size.y
 		for objeto in $produtos.get_children():
 			objeto.atualizar_interface()
 
@@ -1164,7 +1171,7 @@ func _input(event) -> void:
 		if $selecao_loja_perfil.visible:
 			# Se o index da retirada do toque for igual ao index do toque e
 			# se o dedo foi retirado no botão de 'loja' e o 'perfil' estiver selecionado
-			if (selecionado == 1 and not drag_fora_botao_loja and event.index == botoes_pressionados[0]) and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.x <= $selecao_loja_perfil.size.x / 2 and event.position.y > $selecao_loja_perfil.global_position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.y <= $selecao_loja_perfil.size.y / 2 and event.position.x < $selecao_loja_perfil.size.x)):
+			if (selecionado == 1 and not drag_fora_botao_loja and event.index == botoes_pressionados[0]) and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.x <= $selecao_loja_perfil.size.x / 2 and event.position.y > $selecao_loja_perfil.global_position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.y <= $selecao_loja_perfil.size.y / 2 and event.position.x < $selecao_loja_perfil.size.x)):
 				pressionar_perfil(false)
 				mostrar_perfil(false)
 				pressionar_loja(true)
@@ -1178,7 +1185,7 @@ func _input(event) -> void:
 				drag_fora_botao_loja = false
 			# Se o index da retirada do toque do botão 'loja' for igual ao index do toque e
 			# se o dedo foi tirado no botão de 'perfil' e a 'loja' estiver selecionado
-			if (selecionado == 0 and not drag_fora_botao_perfil and event.index == botoes_pressionados[1]) and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.x >= $selecao_loja_perfil.size.x / 2 and event.position.y > $selecao_loja_perfil.global_position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.y >= $selecao_loja_perfil.size.y / 2 and event.position.x < $selecao_loja_perfil.size.x)):
+			if (selecionado == 0 and not drag_fora_botao_perfil and event.index == botoes_pressionados[1]) and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.x >= $selecao_loja_perfil.size.x / 2 and event.position.y > $selecao_loja_perfil.global_position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.y >= $selecao_loja_perfil.size.y / 2 and event.position.x < $selecao_loja_perfil.size.x)):
 				pressionar_perfil(true)
 				mostrar_perfil(true)
 				pressionar_loja(false)
@@ -1441,7 +1448,7 @@ func _input(event) -> void:
 			pressionar_fechar_erro_0(true)
 			fechar_erro_0_pressionado = event.index
 		# Caso o usuário coloque o dedo sobre os botões da $selecao_loja_perfil
-		if $selecao_loja_perfil.visible and not $janelas/fundo_escuro.visible and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y >= $selecao_loja_perfil.position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x <= $selecao_loja_perfil.size.x)):
+		if $selecao_loja_perfil.visible and not $janelas/fundo_escuro.visible and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y >= $selecao_loja_perfil.position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.x <= $selecao_loja_perfil.size.x)):
 			if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y > $selecao_loja_perfil.global_position.y:
 				# Se o dedo foi colocado na parte da 'loja'
 				if event.position.x <= $selecao_loja_perfil.size.x / 2 and selecionado == 1:
@@ -1451,7 +1458,7 @@ func _input(event) -> void:
 				elif event.position.x > $selecao_loja_perfil.size.x / 2 and selecionado == 0:
 					pressionar_perfil(true)
 					botoes_pressionados[1] = event.index
-			elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x < $selecao_loja_perfil.size.x:
+			elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.x < $selecao_loja_perfil.size.x:
 				# Se o dedo foi colocado na parte da 'loja'
 				if event.position.y <= $selecao_loja_perfil.size.y / 2 and selecionado == 1:
 					pressionar_loja(true)
@@ -1533,11 +1540,11 @@ func _input(event) -> void:
 					scroll_speed = (event.position.y - old_drag_y_position)
 					$menu_enderecos.global_position.y += scroll_speed
 					if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1:
-						$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - user_info.margem * get_viewport_rect().size.x / 720
-						$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - user_info.margem * get_viewport_rect().size.y / 1280
-					elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
-						$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - user_info.margem * get_viewport_rect().size.x / 1280
-						$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - user_info.margem * get_viewport_rect().size.y / 720
+						$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - $menu_enderecos.adicionar_original["margem"].x * get_viewport_rect().size.x / 720
+						$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - $menu_enderecos.adicionar_original["margem"].y * get_viewport_rect().size.y / 1280
+					elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
+						$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - $menu_enderecos.adicionar_original["margem"].x * get_viewport_rect().size.x / 1280
+						$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - $menu_enderecos.adicionar_original["margem"].y * get_viewport_rect().size.y / 720
 					old_drag_y_position = event.position.y
 			if event.index == adicionar_pressionado and not drag_fora_botao_adicionar and $menu_enderecos/adicionar.visible and event.position.x >= $menu_enderecos/adicionar.global_position.x and event.position.y >= $menu_enderecos/adicionar.global_position.y and event.position.x <= $menu_enderecos/adicionar.global_position.x + $menu_enderecos/adicionar.size.x and event.position.y <= $menu_enderecos/adicionar.global_position.y + $menu_enderecos/adicionar.size.y:
 				pass
@@ -1555,7 +1562,7 @@ func _input(event) -> void:
 					scroll_speed = (event.position.y - old_drag_y_position)
 					$historico_compras.global_position.y += scroll_speed
 					old_drag_y_position = event.position.y
-		elif $menu_loja.visible and not $janelas/fundo_escuro.visible and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y <= $selecao_loja_perfil.position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x >= $selecao_loja_perfil.size.x)):
+		elif $menu_loja.visible and not $janelas/fundo_escuro.visible and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y <= $selecao_loja_perfil.position.y) or (get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.x >= $selecao_loja_perfil.size.x)):
 			# Se não houver a posição do deslizamento do dedo do usuário
 			if drag_index == -1:
 				old_drag_y_position = event.position.y
@@ -1568,13 +1575,13 @@ func _input(event) -> void:
 					scroll_speed = event.position.y - old_drag_y_position
 					$menu_loja.position.y += scroll_speed
 					old_drag_y_position = event.position.y
-				elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and $menu_loja.position.y + (event.position.y - old_drag_y_position) > -$menu_loja.size.y - get_viewport_rect().size.y * 0.2 + get_viewport_rect().size.y and $menu_loja.position.y + (event.position.y - old_drag_y_position) < get_viewport_rect().size.y * 0.2:
+				elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and $menu_loja.position.y + (event.position.y - old_drag_y_position) > -$menu_loja.size.y - get_viewport_rect().size.y * 0.2 + get_viewport_rect().size.y and $menu_loja.position.y + (event.position.y - old_drag_y_position) < get_viewport_rect().size.y * 0.2:
 					scroll_speed = event.position.y - old_drag_y_position
 					$menu_loja.position.y += scroll_speed
 					old_drag_y_position = event.position.y
 		# Caso o deslize do dedo estja dentro do botão "Loja" e
 		# o index do evento do deslize seja o mesmo da pressão feita no botão
-		if $selecao_loja_perfil.visible and not $janelas/fundo_escuro.visible and botoes_pressionados[0] == event.index and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y >= $selecao_loja_perfil.position.y and event.position.x <= $selecao_loja_perfil.size.x / 2) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x <= $selecao_loja_perfil.size.x and event.position.x <= $selecao_loja_perfil.size.y / 2)):
+		if $selecao_loja_perfil.visible and not $janelas/fundo_escuro.visible and botoes_pressionados[0] == event.index and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y >= $selecao_loja_perfil.position.y and event.position.x <= $selecao_loja_perfil.size.x / 2) or (get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.x <= $selecao_loja_perfil.size.x and event.position.x <= $selecao_loja_perfil.size.y / 2)):
 			pass
 		# Caso o deslize do dedo estja fora do botão "Loja" e
 		# o index do evento do deslize seja o mesmo da pressão feita no botão
@@ -1582,7 +1589,7 @@ func _input(event) -> void:
 			drag_fora_botao_loja = true
 		# Caso o deslize do dedo estja dentro do botão "Perfil" e
 		# o index do evento do deslize seja o mesmo da pressão feita no botão
-		if $selecao_loja_perfil.visible and botoes_pressionados[1] == event.index and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y >= $selecao_loja_perfil.position.y and event.position.x >= $selecao_loja_perfil.size.x / 2) or (get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x <= $selecao_loja_perfil.size.x and event.position.x >= $selecao_loja_perfil.size.y / 2)):
+		if $selecao_loja_perfil.visible and botoes_pressionados[1] == event.index and ((get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and event.position.y >= $selecao_loja_perfil.position.y and event.position.x >= $selecao_loja_perfil.size.x / 2) or (get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.x <= $selecao_loja_perfil.size.x and event.position.x >= $selecao_loja_perfil.size.y / 2)):
 			pass
 		# Caso o deslize do dedo estja fora do botão "Perfil" e
 		# o index do evento do deslize seja o mesmo da pressão feita no botão
@@ -1633,7 +1640,7 @@ func _input(event) -> void:
 						scroll_speed = (event.position.y - old_drag_y_position)
 						objeto.position.y += scroll_speed
 						old_drag_y_position = event.position.y
-					elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and event.position.x > objeto.get_node("sobre").global_position.x and objeto.get_node("sobre").position.y + (event.position.y - old_drag_y_position) > -objeto.get_node("sobre").size.y + get_viewport_rect().size.y * 0.8 and objeto.get_node("sobre").position.y + (event.position.y - old_drag_y_position) < get_viewport_rect().size.y * 0.2:
+					elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and event.position.x > objeto.get_node("sobre").global_position.x and objeto.get_node("sobre").position.y + (event.position.y - old_drag_y_position) > -objeto.get_node("sobre").size.y + get_viewport_rect().size.y * 0.8 and objeto.get_node("sobre").position.y + (event.position.y - old_drag_y_position) < get_viewport_rect().size.y * 0.2:
 						scroll_speed = (event.position.y - old_drag_y_position)
 						objeto.get_node("sobre").position.y += scroll_speed
 						old_drag_y_position = event.position.y
@@ -1649,7 +1656,7 @@ func _process(_delta: float) -> void:
 			# então deslizar os objetos
 			if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and $menu_loja.position.y + scroll_speed > -$menu_loja.size.y - get_viewport_rect().size.y * 0.2 - $selecao_loja_perfil.size.y + get_viewport_rect().size.y and $menu_loja.position.y + scroll_speed < get_viewport_rect().size.y * 0.2:
 				$menu_loja.position.y += scroll_speed
-			elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and $menu_loja.position.y + scroll_speed > -$menu_loja.size.y - get_viewport_rect().size.y * 0.2 + get_viewport_rect().size.y and $menu_loja.position.y - scroll_speed < get_viewport_rect().size.y * 0.2:
+			elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and $menu_loja.position.y + scroll_speed > -$menu_loja.size.y - get_viewport_rect().size.y * 0.2 + get_viewport_rect().size.y and $menu_loja.position.y - scroll_speed < get_viewport_rect().size.y * 0.2:
 				$menu_loja.position.y += scroll_speed
 		if $menu_enderecos.visible:
 			# Se posição do deslizamento estiver nos limites certos,
@@ -1657,11 +1664,11 @@ func _process(_delta: float) -> void:
 			if $menu_enderecos/enderecos.get_child_count() > 0 and $menu_enderecos.global_position.y + scroll_speed > -$menu_enderecos.size.y + get_viewport_rect().size.y * 0.8 and $menu_enderecos.global_position.y + scroll_speed < get_viewport_rect().size.y * 0.2:
 				$menu_enderecos.global_position.y += scroll_speed
 				if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1:
-					$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - user_info.margem * get_viewport_rect().size.x / 720
-					$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - user_info.margem * get_viewport_rect().size.y / 1280
-				elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1:
-					$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - user_info.margem * get_viewport_rect().size.x / 1280
-					$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - user_info.margem * get_viewport_rect().size.y / 720
+					$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - $menu_enderecos.adicionar_original["margem"].x * get_viewport_rect().size.x / 720
+					$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - $menu_enderecos.adicionar_original["margem"].y * get_viewport_rect().size.y / 1280
+				elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1:
+					$menu_enderecos/adicionar.global_position.x = get_viewport_rect().size.x - $menu_enderecos/adicionar.size.x - $menu_enderecos.adicionar_original["margem"].x * get_viewport_rect().size.x / 1280
+					$menu_enderecos/adicionar.global_position.y = get_viewport_rect().size.y - $menu_enderecos/adicionar.size.y - $menu_enderecos.adicionar_original["margem"].y * get_viewport_rect().size.y / 720
 		if $historico_compras.visible:
 			if $historico_compras/titulo.global_position.y + scroll_speed < get_viewport_rect().size.y * 0.2 and ($historico_compras/compras.get_child(-1).global_position.y + $historico_compras/compras.get_child(-1).size.y) + scroll_speed > get_viewport_rect().size.y * 0.8:
 				$historico_compras.global_position.y += scroll_speed
@@ -1671,7 +1678,7 @@ func _process(_delta: float) -> void:
 				# então deslizar os objetos
 				if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1 and objeto.position.y + scroll_speed > -objeto.size_y + get_viewport_rect().size.y * 0.8 and objeto.position.y + scroll_speed < get_viewport_rect().size.y * 0.2:
 					objeto.position.y += scroll_speed
-				elif get_viewport_rect().size.x / get_viewport_rect().size.y >= 1 and objeto.get_node("sobre").position.y + scroll_speed > -objeto.get_node("sobre").size.y + get_viewport_rect().size.y * 0.8 and objeto.get_node("sobre").position.y + scroll_speed < get_viewport_rect().size.y * 0.2:
+				elif get_viewport_rect().size.x / get_viewport_rect().size.y > 1 and objeto.get_node("sobre").position.y + scroll_speed > -objeto.get_node("sobre").size.y + get_viewport_rect().size.y * 0.8 and objeto.get_node("sobre").position.y + scroll_speed < get_viewport_rect().size.y * 0.2:
 					objeto.get_node("sobre").position.y += scroll_speed
 
 

@@ -7,7 +7,6 @@ var reais: int
 # Um inteiro que mostra o dinheiro em reais do usuário
 var reais_string: String
 # Uma string do dinheiro em reais com espaços entre as unidades
-const margem = 40
 var historico_compras = []
 
 

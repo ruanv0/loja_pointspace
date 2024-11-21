@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PointSpace"
-config/version="2024.11.17.1"
+config/version="2024.11.21.0"
 run/main_scene="res://controle.tscn"
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.3", "GL Compatibility")
