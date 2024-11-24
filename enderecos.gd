@@ -25,9 +25,11 @@ func _ready() -> void:
 func atualizar_interface() -> void:
 	if get_viewport_rect().size.y / get_viewport_rect().size.x >= 1:
 		global_position.y = 0
+		var old_enderecos_font_size = $enderecos_texto.get_theme_font_size("font_size")
 		$enderecos_texto.add_theme_font_size_override("font_size", titulo_original["font_size"] * get_viewport_rect().size.x / 720)
-		await($enderecos_texto.minimum_size_changed)
-		$enderecos_texto.reset_size()
+		if old_enderecos_font_size != $enderecos_texto.get_theme_font_size("font_size"):
+			await($enderecos_texto.minimum_size_changed)
+			$enderecos_texto.reset_size()
 		$enderecos_texto.global_position.x = titulo_original["global_position"].x * get_viewport_rect().size.x / 720
 		$enderecos_texto.global_position.y = titulo_original["global_position"].y * get_viewport_rect().size.x / 720
 		$escolher.add_theme_font_size_override("font_size", titulo_original["font_size"] * get_viewport_rect().size.x / 720)
@@ -90,7 +92,7 @@ func atualizar_interface() -> void:
 func carregar_enderecos() -> void:
 	for child in $enderecos.get_children():
 		child.free()
-	if len(user_info.enderecos) == 0:
+	if not $nenhum.visible and len(user_info.enderecos) == 0:
 		$nenhum.visible = true
 	else:
 		if $nenhum.visible:

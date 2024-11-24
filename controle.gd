@@ -668,11 +668,8 @@ func atualizar_interface() -> void:
 														  get_viewport_rect().size.y / 1280)
 		$selecao_loja_perfil/perfil_icone.position.x = $selecao_loja_perfil.size.x / 4 * 3 - $selecao_loja_perfil/perfil_icone.size.x * $selecao_loja_perfil/perfil_icone.scale.x / 2
 		$selecao_loja_perfil/perfil_icone.position.y = selecao_loja_perfil_original["perfil_icone_position"].y * get_viewport_rect().size.y / 1280
-		var old_perfil_texto_font_size = $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size")
 		$selecao_loja_perfil/perfil_texto.add_theme_font_size_override("font_size", selecao_loja_perfil_original["perfil_texto_font_size"] * get_viewport_rect().size.y / 1280)
-		if old_perfil_texto_font_size != $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size"):
-			await($selecao_loja_perfil/perfil_texto.minimum_size_changed)
-			$selecao_loja_perfil/perfil_texto.reset_size()
+		$selecao_loja_perfil/perfil_texto.reset_size()
 		$selecao_loja_perfil/perfil_texto.position.x = $selecao_loja_perfil.size.x / 4 * 3 - $selecao_loja_perfil/perfil_texto.size.x / 2
 		$selecao_loja_perfil/perfil_texto.position.y = selecao_loja_perfil_original["perfil_texto_position"].y * get_viewport_rect().size.y / 1280
 		$janelas/fundo_escuro.size = get_viewport_rect().size
@@ -717,22 +714,22 @@ func atualizar_interface() -> void:
 		$janelas/deletar_fundo/deletar_pergunta.reset_size()
 		$janelas/deletar_fundo/deletar_pergunta.position.x = janela_deletar_original["pergunta_position"].x * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/deletar_pergunta.position.y = janela_deletar_original["pergunta_position"].y * get_viewport_rect().size.x / 720
-		$janelas/deletar_fundo/sim_deletar/texto.add_theme_font_size_override("font_size", janela_deletar_original["sim_texto_font_size"] * get_viewport_rect().size.x / 720)
-		$janelas/deletar_fundo/sim_deletar/texto.reset_size()
-		$janelas/deletar_fundo/sim_deletar/texto.position.x = janela_deletar_original["sim_texto_position"].x * get_viewport_rect().size.x / 720
-		$janelas/deletar_fundo/sim_deletar/texto.position.y = janela_deletar_original["sim_texto_position"].y * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/sim_deletar.size.x = janela_deletar_original["sim_fundo_size"].x * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/sim_deletar.size.y = janela_deletar_original["sim_fundo_size"].y * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/sim_deletar.position.x = janela_deletar_original["sim_fundo_position"].x * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/sim_deletar.position.y = janela_deletar_original["sim_fundo_position"].y * get_viewport_rect().size.x / 720
-		$janelas/deletar_fundo/nao_deletar/texto.add_theme_font_size_override("font_size", janela_deletar_original["nao_texto_font_size"] * get_viewport_rect().size.x / 720)
-		$janelas/deletar_fundo/nao_deletar/texto.reset_size()
-		$janelas/deletar_fundo/nao_deletar/texto.position.x = janela_deletar_original["nao_texto_position"].x * get_viewport_rect().size.x / 720
-		$janelas/deletar_fundo/nao_deletar/texto.position.y = janela_deletar_original["nao_texto_position"].y * get_viewport_rect().size.x / 720
+		$janelas/deletar_fundo/sim_deletar/texto.add_theme_font_size_override("font_size", janela_deletar_original["sim_texto_font_size"] * get_viewport_rect().size.x / 720)
+		$janelas/deletar_fundo/sim_deletar/texto.reset_size()
+		$janelas/deletar_fundo/sim_deletar/texto.position.x = janela_deletar_original["sim_texto_position"].x * get_viewport_rect().size.x / 720
+		$janelas/deletar_fundo/sim_deletar/texto.position.y = janela_deletar_original["sim_texto_position"].y * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/nao_deletar.size.x = janela_deletar_original["nao_fundo_size"].x * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/nao_deletar.size.y = janela_deletar_original["nao_fundo_size"].y * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/nao_deletar.position.x = janela_deletar_original["nao_fundo_position"].x * get_viewport_rect().size.x / 720
 		$janelas/deletar_fundo/nao_deletar.position.y = janela_deletar_original["nao_fundo_position"].y * get_viewport_rect().size.x / 720
+		$janelas/deletar_fundo/nao_deletar/texto.add_theme_font_size_override("font_size", janela_deletar_original["nao_texto_font_size"] * get_viewport_rect().size.x / 720)
+		$janelas/deletar_fundo/nao_deletar/texto.reset_size()
+		$janelas/deletar_fundo/nao_deletar/texto.position.x = janela_deletar_original["nao_texto_position"].x * get_viewport_rect().size.x / 720
+		$janelas/deletar_fundo/nao_deletar/texto.position.y = janela_deletar_original["nao_texto_position"].y * get_viewport_rect().size.x / 720
 		$menu_perfil/voce.add_theme_font_size_override("font_size", voce_original["font_size"] * get_viewport_rect().size.x / 720)
 		$menu_perfil/voce.reset_size()
 		$menu_perfil/voce.global_position.x = voce_original["global_position"].x * get_viewport_rect().size.x / 720
@@ -1063,6 +1060,9 @@ func finalizar_compra() -> void:
 	$menu_enderecos/enderecos_texto.visible = true
 	$menu_enderecos/escolher.visible = false
 	$menu_enderecos/adicionar.visible = true
+	for objeto in $menu_enderecos/enderecos.get_children():
+		objeto.get_node("deletar_texto").visible = true
+		objeto.get_node("deletar_icone").visible = true
 	$menu_loja.visible = true
 	$selecao_loja_perfil.visible = true
 	comprando = false
