@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
-   sodipodi:docname="pointspace-logo.svg"
+   sodipodi:docname="pointspace-logotipo.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
      inkscape:zoom="0.48996914"
-     inkscape:cx="542.89133"
-     inkscape:cy="1071.4961"
+     inkscape:cx="557.17795"
+     inkscape:cy="532.68661"
      inkscape:window-width="1366"
      inkscape:window-height="761"
      inkscape:window-x="0"
@@ -146,5 +146,17 @@
        cx="86.880005"
        cy="198.40001"
        r="15" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.4065px;font-family:'Architects Daughter';-inkscape-font-specification:'Architects Daughter, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke-width:133.479"
+       x="38.389214"
+       y="263.82462"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.4065px;font-family:'Architects Daughter';-inkscape-font-specification:'Architects Daughter, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:133.479"
+         x="38.389214"
+         y="263.82462"
+         rotate="0 0 0 0 0 0 0 0 0 0 0">PointSpace</tspan></text>
   </g>
 </svg>
