@@ -668,8 +668,11 @@ func atualizar_interface() -> void:
 														  get_viewport_rect().size.y / 1280)
 		$selecao_loja_perfil/perfil_icone.position.x = $selecao_loja_perfil.size.x / 4 * 3 - $selecao_loja_perfil/perfil_icone.size.x * $selecao_loja_perfil/perfil_icone.scale.x / 2
 		$selecao_loja_perfil/perfil_icone.position.y = selecao_loja_perfil_original["perfil_icone_position"].y * get_viewport_rect().size.y / 1280
+		var old_perfil_texto_font_size = $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size")
 		$selecao_loja_perfil/perfil_texto.add_theme_font_size_override("font_size", selecao_loja_perfil_original["perfil_texto_font_size"] * get_viewport_rect().size.y / 1280)
-		$selecao_loja_perfil/perfil_texto.reset_size()
+		if old_perfil_texto_font_size != $selecao_loja_perfil/perfil_texto.get_theme_font_size("font_size"):
+			await($selecao_loja_perfil/perfil_texto.minimum_size_changed)
+			$selecao_loja_perfil/perfil_texto.reset_size()
 		$selecao_loja_perfil/perfil_texto.position.x = $selecao_loja_perfil.size.x / 4 * 3 - $selecao_loja_perfil/perfil_texto.size.x / 2
 		$selecao_loja_perfil/perfil_texto.position.y = selecao_loja_perfil_original["perfil_texto_position"].y * get_viewport_rect().size.y / 1280
 		$janelas/fundo_escuro.size = get_viewport_rect().size
